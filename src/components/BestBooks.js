@@ -16,7 +16,6 @@ class BestBooks extends React.Component {
 getBooks = async () => {
   try {
     
-    console.log(`${herokuUrl}/books`)
     let results = await axios.get(`${herokuUrl}/books`)
     this.setState({
       books: results.data

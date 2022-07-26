@@ -44,8 +44,8 @@ Support each other with our strengths, knowing that we are strong/weak in differ
 
 Estimate of time needed to complete: 4 hours
 
-Start time: 4:30pm (paused at 7pm, resumed at 8:30pm, paused at 10pm)
+Start time: 4:30pm (paused at 7pm, resumed at 8:30pm, paused at 10pm, resumed at 2pm)
 
-Finish time: _____ 
+Finish time: 4pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 6 hours

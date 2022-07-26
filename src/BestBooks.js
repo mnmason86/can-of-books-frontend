@@ -22,7 +22,7 @@ getBooks = async () => {
   componentDidMount () 
     this.getBooks();
   }
-}
+
   render() {
 
     /* TODO: render all the books in a Carousel */
@@ -32,9 +32,11 @@ getBooks = async () => {
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
 
         {this.state.books.length ? (
-          <p>Book Carousel coming soon</p>
+          <p>{this.state.books.carousel({
+                interval: 3000
+          })}</p>
         ) : (
-          <h3>No Books Found :(</h3>
+          <h3>No Books Found</h3>
         )}
       </>
     )

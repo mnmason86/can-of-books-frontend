@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
 
+const herokuUrl = process.env.REACT_APP_HEROKU_URL;
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -14,9 +15,9 @@ class BestBooks extends React.Component {
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
 getBooks = async () => {
   try {
-    let url = 'http://localhost:3001';
-    console.log(`${url}/books`)
-    let results = await axios.get(`${url}/books`)
+    
+    console.log(`${herokuUrl}/books`)
+    let results = await axios.get(`${herokuUrl}/books`)
     this.setState({
       books: results.data
     })

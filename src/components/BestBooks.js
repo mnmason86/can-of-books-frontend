@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { Carousel } from 'react-bootstrap/Carousel';
-import { Button } from 'react-bootstrap/Button';
+import { Carousel } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import BookFormModal from './BookFormModal';
 
 const herokuUrl = process.env.REACT_APP_HEROKU_URL;
 
@@ -9,7 +10,8 @@ class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      showModal: false
     }
   }
 
@@ -62,7 +64,10 @@ this.getBooks();
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-
+        <Button onClick={(e) => this.setState({showModal: true})}>
+          Add A New Book
+        </Button>
+        <BookFormModal show={this.state.showModal} close={(e) => this.setState({showModal:false})} submit={this.addBook}></BookFormModal>
         {this.state.books.length ? (
           <Carousel>
             {this.state.books.map(element =>

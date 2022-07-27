@@ -4,8 +4,8 @@ import { Carousel } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import BookFormModal from './BookFormModal';
 
-//const herokuUrl = process.env.REACT_APP_HEROKU_URL;
-const localHost = 'http://localhost:3001';
+const herokuUrl = process.env.REACT_APP_HEROKU_URL;
+//const localHost = 'http://localhost:3001';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class BestBooks extends React.Component {
 async getBooks() {
   try {
     
-    let results = await axios.get(`${localHost}/books`)
+    let results = await axios.get(`${herokuUrl}/books`)
     this.setState({
       books: results.data
     })
@@ -30,7 +30,7 @@ async getBooks() {
 }
 
 addBook = (book) => {
-  axios.post(`${localHost}/books`,book)
+  axios.post(`${herokuUrl}/books`,book)
   .then(response => {
     this.setState({books: [...this.state.books, response.data]})
   })
@@ -41,7 +41,7 @@ addBook = (book) => {
 
 deleteBook = async (bookID) => {
   console.log(bookID);
-   await axios.delete(`${localHost}/books/:id${bookID._id}`)
+   await axios.delete(`${herokuUrl}/books/:id${bookID._id}`)
   .then(() => {
     console.log(this.state.books);
     this.deleteFromState(bookID);

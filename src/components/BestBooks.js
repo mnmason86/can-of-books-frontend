@@ -41,8 +41,9 @@ addBook = (book) => {
 
 deleteBook = async (bookID) => {
   console.log(bookID);
-   axios.delete(`${localHost}/books/${bookID._id}`)
+   await axios.delete(`${localHost}/books/:id${bookID._id}`)
   .then(() => {
+    console.log(this.state.books);
     this.deleteFromState(bookID);
   })
 }
@@ -81,7 +82,7 @@ this.getBooks();
                   <p id="carousel-desc">{element.description}</p>
                   <p id="carousel-status">{element.status}</p>
                   <p>{element._id}</p>
-                  <Button onClick={() => this.deleteBook(element._id)}>
+                  <Button onClick={e => this.deleteBook(element._id)}>
                     Remove This Book
                   </Button>
                 </Carousel.Caption>

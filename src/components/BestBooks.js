@@ -4,7 +4,8 @@ import { Carousel } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import BookFormModal from './BookFormModal';
 
-const herokuUrl = process.env.REACT_APP_HEROKU_URL;
+//const herokuUrl = process.env.REACT_APP_HEROKU_URL;
+const localHost = 'http://localhost:3001';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class BestBooks extends React.Component {
 async getBooks() {
   try {
     
-    let results = await axios.get(`${herokuUrl}/books`)
+    let results = await axios.get(`${localHost}/books`)
     this.setState({
       books: results.data
     })
@@ -29,17 +30,18 @@ async getBooks() {
 }
 
 addBook = (book) => {
-  axios.post(herokuUrl,book)
+  axios.post(`${localHost}/books`,book)
   .then(response => {
-    this.setState({books: [...this.state.books,response.data]})
+    this.setState({books: [...this.state.books, response.data]})
   })
   .catch(error => {
     console.error(error);
   })
 }
 
-deleteBook = (bookID) => {
-  axios.delete(herokuUrl + `/${bookID}`)
+deleteBook = async (bookID) => {
+  console.log(bookID);
+   axios.delete(`${localHost}/books/${bookID._id}`)
   .then(() => {
     this.deleteFromState(bookID);
   })
@@ -48,6 +50,7 @@ deleteBook = (bookID) => {
 deleteFromState = (bookID) => {
   const stateArray = this.state.books.filter(book => {
     return !(book._id === bookID)
+
   })
   this.setState({books: stateArray})
 }
@@ -77,7 +80,8 @@ this.getBooks();
                   <h3 id="carousel-title">{element.title}</h3>
                   <p id="carousel-desc">{element.description}</p>
                   <p id="carousel-status">{element.status}</p>
-                  <Button onClick={b => this.deleteBook(element._id)}>
+                  <p>{element._id}</p>
+                  <Button onClick={() => this.deleteBook(element._id)}>
                     Remove This Book
                   </Button>
                 </Carousel.Caption>

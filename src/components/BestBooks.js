@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import BookFormModal from './BookFormModal';
 
 const herokuUrl = process.env.REACT_APP_HEROKU_URL;
 
@@ -8,12 +10,13 @@ class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      showModal: false
     }
   }
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
-getBooks = async () => {
+async getBooks() {
   try {
     
     let results = await axios.get(`${herokuUrl}/books`)
@@ -24,6 +27,31 @@ getBooks = async () => {
     console.log('error')
   }
 }
+
+addBook = (book) => {
+  axios.post(herokuUrl,book)
+  .then(response => {
+    this.setState({books: [...this.state.books,response.data]})
+  })
+  .catch(error => {
+    console.error(error);
+  })
+}
+
+deleteBook = (bookID) => {
+  axios.delete(herokuUrl + `/${bookID}`)
+  .then(() => {
+    this.deleteFromState(bookID);
+  })
+}
+
+deleteFromState = (bookID) => {
+  const stateArray = this.state.books.filter(book => {
+    return !(book._id === bookID)
+  })
+  this.setState({books: stateArray})
+}
+
 
 componentDidMount () {
 this.getBooks();
@@ -36,7 +64,10 @@ this.getBooks();
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-
+        <Button onClick={(e) => this.setState({showModal: true})}>
+          Add A New Book
+        </Button>
+        <BookFormModal show={this.state.showModal} close={(e) => this.setState({showModal:false})} submit={this.addBook}></BookFormModal>
         {this.state.books.length ? (
           <Carousel>
             {this.state.books.map(element =>
@@ -46,6 +77,9 @@ this.getBooks();
                   <h3 id="carousel-title">{element.title}</h3>
                   <p id="carousel-desc">{element.description}</p>
                   <p id="carousel-status">{element.status}</p>
+                  <Button onClick={b => this.deleteBook(element._id)}>
+                    Remove This Book
+                  </Button>
                 </Carousel.Caption>
               </Carousel.Item>
               )}

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Carousel } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap/Carousel';
+import { Button } from 'react-bootstrap/Button';
 
 const herokuUrl = process.env.REACT_APP_HEROKU_URL;
 
@@ -13,7 +14,7 @@ class BestBooks extends React.Component {
   }
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
-getBooks = async () => {
+async getBooks() {
   try {
     
     let results = await axios.get(`${herokuUrl}/books`)
@@ -24,6 +25,31 @@ getBooks = async () => {
     console.log('error')
   }
 }
+
+addBook = (book) => {
+  axios.post(herokuUrl,book)
+  .then(response => {
+    this.setState({books: [...this.state.books,response.data]})
+  })
+  .catch(error => {
+    console.error(error);
+  })
+}
+
+deleteBook = (bookID) => {
+  axios.delete(herokuUrl + `/${bookID}`)
+  .then(() => {
+    this.deleteFromState(bookID);
+  })
+}
+
+deleteFromState = (bookID) => {
+  const stateArray = this.state.books.filter(book => {
+    return !(book._id === bookID)
+  })
+  this.setState({books: stateArray})
+}
+
 
 componentDidMount () {
 this.getBooks();
@@ -46,6 +72,9 @@ this.getBooks();
                   <h3 id="carousel-title">{element.title}</h3>
                   <p id="carousel-desc">{element.description}</p>
                   <p id="carousel-status">{element.status}</p>
+                  <Button onClick={b => this.deleteBook(element._id)}>
+                    Remove This Book
+                  </Button>
                 </Carousel.Caption>
               </Carousel.Item>
               )}

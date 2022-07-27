@@ -41,7 +41,7 @@ addBook = (book) => {
 
 deleteBook = async (bookID) => {
   console.log(bookID);
-   await axios.delete(`${herokuUrl}/books/:id${bookID._id}`)
+   await axios.delete(`${herokuUrl}/books/${bookID}`)
   .then(() => {
     console.log(this.state.books);
     this.deleteFromState(bookID);

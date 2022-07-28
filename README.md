@@ -16,11 +16,13 @@ React, Node.js, MongoDB Atlas, Mongoose, Heroku, Netlify, Bootstrap
 
 07-26-2022 4:00pm - Application now has a fully-functional express server, with a GET route for the books resource.
 07-26-2022 11:00pm - Application now gives user the ability to add and delete books from state.
-07-26-2022 1:00on - Application gives user the ability to add and delete books from state and database.
+07-27-2022 1:00pm - Application gives user the ability to add and delete books from state and database.
+07-28-2022 5:00pm - Application give user the ability to update existing books, styling completed.
 
 ## Credit and Collaborations
 Jacob Knaack - Demo code and revision
 Brandon Mizutani - Help with add/delete book functions
+Joshua Frazer - Help with debugging front end
 
 # Professional Pairing Practice
 
@@ -88,8 +90,8 @@ Actual time needed to complete: 5 hours, 30 minutes
 
 Estimate of time needed to complete: 2.5 hours
 
-Start time: 2:00pm
+Start time: 2:00pm (pause at 4pm, resume at 12pm next day)
 
-Finish time: 
+Finish time: 1:00pm
 
-Actual time needed to complete: 
+Actual time needed to complete: 3 hours

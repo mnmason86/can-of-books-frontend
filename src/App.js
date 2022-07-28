@@ -9,11 +9,15 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import Login from './auth/Login';
 
 class App extends React.Component {
   render() {
     return (
       <>
+        <div>
+          <Login></Login>
+        </div>
         <Router>
           <Header />
           <Routes>

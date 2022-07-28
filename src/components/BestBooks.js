@@ -4,6 +4,8 @@ import { Carousel } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import BookFormModal from './BookFormModal';
 import pic from '../img/bookBg.jpg'
+import Form from 'react-bootstrap/Form'
+
 
 const herokuUrl = process.env.REACT_APP_HEROKU_URL;
 //const localHost = 'http://localhost:3001';
@@ -14,27 +16,24 @@ class BestBooks extends React.Component {
     super(props);
     this.state = {
       books: [],
-      showModal: false
+      showAddModal: false,
+      carouselIndex: 0
     }
   }
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
-async getBooks() {
-  try {
-    
+async getBooks() { 
     let results = await axios.get(`${herokuUrl}/books`)
     this.setState({
       books: results.data
     })
-  } catch (error) {
-    console.log('error')
-  }
 }
 
 addBook = (book) => {
   axios.post(`${herokuUrl}/books`,book)
   .then(response => {
-    this.setState({books: [...this.state.books, response.data]})
+    const lastIndex = this.state.books.length;
+    this.setState({books: [...this.state.books, response.data], showModal: false, carouselIndex: lastIndex})
   })
   .catch(error => {
     console.error(error);
@@ -55,9 +54,32 @@ deleteFromState = (bookID) => {
     return !(book._id === bookID)
 
   })
-  this.setState({books: stateArray})
+  this.setState({books: stateArray, carouselIndex: 0})
 }
 
+handleCarouselIndex = (chosenIndex, e) => {
+  this.setState({carouselIndex: chosenIndex})
+}
+
+updateBook = async (e) => {
+  e.preventDefault();
+  console.log(e.id);
+  const title = e.title;
+  const description = e.description;
+  const status = e.status;
+  const id = e._id;
+  await axios.put(`${herokuUrl}/books/${id}`, {title:title, description: description, status:status})
+  .then(response => {
+    const updateBooks = Array(...this.state.books);
+    const book = updateBooks.find(book => book._id === id);
+    book.title = title;
+    book.description = description;
+    book.status = status;
+    book._id = response.data._id;
+    this.setState({books: updateBooks});
+    alert(`Your book, ${response.data.title}, has been updated.`);
+  })
+}
 
 componentDidMount () {
 this.getBooks();
@@ -65,24 +87,25 @@ this.getBooks();
 
   render() {
 
-    /* TODO: render all the books in a Carousel */
-
     return (
       <>
-        <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        <Button onClick={(e) => this.setState({showModal: true})}>
-          Add A New Book
-        </Button>
-        <BookFormModal show={this.state.showModal} close={(e) => this.setState({showModal:false})} submit={this.addBook}></BookFormModal>
+        <h2>My Favorite Books Collection</h2>
+        <BookFormModal show={this.state.showAddModal} close={(e) => this.setState({showAddModal:false})} submit={this.addBook}></BookFormModal>
         {this.state.books.length ? (
-          <Carousel>
+          <Carousel activeIndex={this.state.carouselIndex} onSelect={this.handleCarouselIndex}>
             {this.state.books.map(element =>
-              <Carousel.Item id="carousel-item" style={{marginTop: 40, marginBottom: 40, marginLeft: 200 }}>
+              <Carousel.Item id="carousel-item" key={element._id} style={{marginTop: 40, marginBottom: 40, marginLeft: 200 }}>
                 <img id="carousel-img" src={pic} alt=' ' style ={{height: 300, width: 1500}}></img>
                 <Carousel.Caption id="caption" style={{display: 'block', textAlign: 'center'}}>
-                  <h3 id="carousel-title">{element.title}</h3>
-                  <p id="carousel-desc">{element.description}</p>
-                  <p id="carousel-status">{element.status}</p>
+                  <Form onSubmit={this.updateBook}>
+                    <Form.Control defaultValue={element.title} />
+                    <Form.Control defaultValue={element.description} />
+                    <Form.Control defaultValue={element.status} />
+                    <Form.Control defaultValue={element._id} disabled />
+                    <Button type="submit" variant="success">
+                    Update This Book
+                  </Button>
+                  </Form>
                   <Button onClick={e => this.deleteBook(element._id)}>
                     Remove This Book
                   </Button>

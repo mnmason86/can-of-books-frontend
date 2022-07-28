@@ -62,7 +62,7 @@ Same as if one person is pulling all the weight. Have a conversation about what 
 ### How will you approach each other and the challenge of building an application knowing that it is impossible for two people to be at the exact same place in understanding and skill level? 
 Support each other with our strengths, knowing that we are strong/weak in different areas.
 
-** Name of feature: READ of CRUD 1**
+** Name of feature: READ of CRUD**
 
 Estimate of time needed to complete: 4 hours
 
@@ -72,12 +72,12 @@ Finish time: 4pm
 
 Actual time needed to complete: 6 hours
 
-**Name of feature: READ of CRUD 2**
+**Name of feature: CREATE and UPDATE of CRUD**
 
 Estimate of time needed to complete: 4 hours
 
-Start time: 2:00pm (pause at 4pm, resume at 6pm)
+Start time: 2:00pm (pause at 4pm, resume at 6pm, fix bug next day)
 
-Finish time: 9:00pm
+Finish time: 9:30pm
 
-Actual time needed to complete: 5 hours
+Actual time needed to complete: 5 hours, 30 minutes

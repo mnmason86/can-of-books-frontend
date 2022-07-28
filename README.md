@@ -1,7 +1,7 @@
 # Can Of Books (frontend)
 
 **Author**: Kyel Boisseau , Mandy Mason
-**Version**: 1.2.0 
+**Version**: 1.3.0 
 
 ## Overview
 Books are life-changing. They have the power to enlighten, educate, entertain, heal, and help us grow. We have created a small app to track what books have impacted users, and what’s recommended to read next.
@@ -16,6 +16,7 @@ React, Node.js, MongoDB Atlas, Mongoose, Heroku, Netlify, Bootstrap
 
 07-26-2022 4:00pm - Application now has a fully-functional express server, with a GET route for the books resource.
 07-26-2022 11:00pm - Application now gives user the ability to add and delete books from state.
+07-26-2022 1:00on - Application gives user the ability to add and delete books from state and database.
 
 ## Credit and Collaborations
 Jacob Knaack - Demo code and revision
@@ -72,7 +73,7 @@ Finish time: 4pm
 
 Actual time needed to complete: 6 hours
 
-**Name of feature: CREATE and UPDATE of CRUD**
+**Name of feature: CREATE and DELETE of CRUD**
 
 Estimate of time needed to complete: 4 hours
 
@@ -81,3 +82,13 @@ Start time: 2:00pm (pause at 4pm, resume at 6pm, fix bug next day)
 Finish time: 9:30pm
 
 Actual time needed to complete: 5 hours, 30 minutes
+
+**Name of feature: UPDATE of CRUD**
+
+Estimate of time needed to complete: 2.5 hours
+
+Start time: 2:00pm
+
+Finish time: 
+
+Actual time needed to complete: 

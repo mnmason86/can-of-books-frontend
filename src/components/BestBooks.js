@@ -3,9 +3,11 @@ import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import BookFormModal from './BookFormModal';
+import pic from '../img/bookBg.jpg'
 
 const herokuUrl = process.env.REACT_APP_HEROKU_URL;
 //const localHost = 'http://localhost:3001';
+
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -75,13 +77,12 @@ this.getBooks();
         {this.state.books.length ? (
           <Carousel>
             {this.state.books.map(element =>
-              <Carousel.Item id="carousel-item">
-                <img id="carousel-img" src='https://place-hold.it/1800x400/black/white' alt='sample background'></img>
-                <Carousel.Caption id="caption">
+              <Carousel.Item id="carousel-item" style={{marginTop: 40, marginBottom: 40, marginLeft: 200 }}>
+                <img id="carousel-img" src={pic} alt=' ' style ={{height: 300, width: 1500}}></img>
+                <Carousel.Caption id="caption" style={{display: 'block', textAlign: 'center'}}>
                   <h3 id="carousel-title">{element.title}</h3>
                   <p id="carousel-desc">{element.description}</p>
                   <p id="carousel-status">{element.status}</p>
-                  <p>{element._id}</p>
                   <Button onClick={e => this.deleteBook(element._id)}>
                     Remove This Book
                   </Button>

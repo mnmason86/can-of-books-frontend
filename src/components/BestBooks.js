@@ -6,9 +6,7 @@ import BookFormModal from './BookFormModal';
 import pic from '../img/bookBg.jpg'
 import Form from 'react-bootstrap/Form'
 
-
-//const herokuUrl = process.env.REACT_APP_HEROKU_URL;
-const localHost = 'http://localhost:3001';
+const herokuUrl = process.env.REACT_APP_HEROKU_URL;
 
 
 class BestBooks extends React.Component {
@@ -23,14 +21,14 @@ class BestBooks extends React.Component {
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
 async getBooks() { 
-    let results = await axios.get(`${localHost}/books`)
+    let results = await axios.get(`${herokuUrl}/books`)
     this.setState({
       books: results.data
     })
 }
 
 addBook = (book) => {
-  axios.post(`${localHost}/books`,book)
+  axios.post(`${herokuUrl}/books`,book)
   .then(response => {
     const lastIndex = this.state.books.length;
     this.setState({books: [...this.state.books, response.data], showModal: false, carouselIndex: lastIndex})
@@ -42,7 +40,7 @@ addBook = (book) => {
 
 deleteBook = async (bookID) => {
   console.log(bookID);
-   await axios.delete(`${localHost}/books/${bookID}`)
+   await axios.delete(`${herokuUrl}/books/${bookID}`)
   .then(() => {
     console.log(this.state.books);
     this.deleteFromState(bookID);
@@ -68,7 +66,7 @@ updateBook = async (e) => {
   const description = e.target[1].value;
   const status = e.target[2].value;
   const id = e.target[3].value;
-  await axios.put(`${localHost}/books/${id}`, {title:title, description: description, status:status})
+  await axios.put(`${herokuUrl}/books/${id}`, {title:title, description: description, status:status})
   .then(response => {
     
     const updateBooks = Array(...this.state.books);

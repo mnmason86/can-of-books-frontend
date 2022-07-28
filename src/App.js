@@ -10,6 +10,7 @@ import {
   Route
 } from "react-router-dom";
 
+
 class App extends React.Component {
   render() {
     return (
@@ -23,7 +24,7 @@ class App extends React.Component {
             >
             </Route>
             <Route
-            path="/about"
+            path="/About"
             element={<About />}
             ></Route>
             

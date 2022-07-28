@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import BookFormModal from './BookFormModal';
+import UpdateForm from './UpdateForm';
 
 const herokuUrl = process.env.REACT_APP_HEROKU_URL;
 //const localHost = 'http://localhost:3001';
@@ -12,7 +13,8 @@ class BestBooks extends React.Component {
     super(props);
     this.state = {
       books: [],
-      showModal: false
+      showModal: false,
+      showUpdateModal: false
     }
   }
 
@@ -56,6 +58,28 @@ deleteFromState = (bookID) => {
   this.setState({books: stateArray})
 }
 
+updateBook = async (bookID) => {
+ try {
+  let results =  await axios.put(`${herokuUrl}/books/${bookID}`,bookID)
+  let updatedArray = this.state.books.map(oldBook => {
+    return oldBook._id === bookID._id
+    ? results.data
+    : oldBook
+  });
+    this.setState({
+      books: updatedArray,
+    });
+    
+   }
+
+  catch(error) {
+    console.error(error);
+  }
+
+    
+  
+};
+
 
 componentDidMount () {
 this.getBooks();
@@ -85,6 +109,11 @@ this.getBooks();
                   <Button onClick={e => this.deleteBook(element._id)}>
                     Remove This Book
                   </Button>
+                  <Button onClick={e => this.updateBook(element._id) && this.setState({showUpdateModal:true })}>
+                  
+                  Update Book
+                 </Button>
+                 <UpdateForm show={this.state.showUpdateModal} close={(e) => this.setState({showUpdateModal:false})} submit={this.updateBook}></UpdateForm>
                 </Carousel.Caption>
               </Carousel.Item>
               )}

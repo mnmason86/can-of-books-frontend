@@ -20,6 +20,7 @@ React, Node.js, MongoDB Atlas, Mongoose, Heroku, Netlify, Bootstrap
 
 ## Credit and Collaborations
 Jacob Knaack - Demo code and revision
+Brandon Mizutani - Help with add/delete book functions
 
 # Professional Pairing Practice
 
